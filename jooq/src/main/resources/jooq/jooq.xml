@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.9.2.xsd">
+
+    <logging>INFO</logging>
+
+    <jdbc>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <url>jdbc:mysql://127.0.0.1:3306/test?useSSL=false</url><!--修改数据库需要修改此处-->
+        <user>root</user>
+        <password>1234</password>
+    </jdbc>
+
+    <generator>
+        <strategy>
+            <matchers>
+                <tables>
+                    <table>
+                       <!-- <expression>^ps_(.*)$</expression>-->
+                        <expression>^sys_(.*)$</expression>
+
+                        <tableIdentifier>
+                            <transform>UPPER</transform>
+                            <expression>$1</expression>
+                        </tableIdentifier>
+
+                        <tableClass>
+                            <transform>UPPER</transform>
+                            <expression>$1_TABLE</expression>
+                        </tableClass>
+
+                        <pojoClass>
+                            <transform>PASCAL</transform>
+                            <expression>$1</expression>
+                        </pojoClass>
+
+                        <recordClass>
+                            <transform>PASCAL</transform>
+                            <expression>$1_Record</expression>
+                        </recordClass>
+
+                        <daoClass>
+                            <transform>PASCAL</transform>
+                            <expression>$1_Dao_Supper</expression>
+                        </daoClass>
+
+                    </table>
+                    <table>
+                        <expression>users</expression>
+
+                        <tableIdentifier>
+                            <transform>UPPER</transform>
+                            <expression>USERS</expression>
+                        </tableIdentifier>
+
+                        <tableClass>
+                            <transform>UPPER</transform>
+                            <expression>USERS_TABLE</expression>
+                        </tableClass>
+
+                        <pojoClass>
+                            <transform>PASCAL</transform>
+                            <expression>Users_Info</expression>
+                        </pojoClass>
+
+                        <recordClass>
+                            <transform>PASCAL</transform>
+                            <expression>Users_Info_Record</expression>
+                        </recordClass>
+
+                        <daoClass>
+                            <transform>PASCAL</transform>
+                            <expression>Users_Info_Dao_Supper</expression>
+                        </daoClass>
+                    </table>
+                </tables>
+            </matchers>
+        </strategy>
+
+        <database>
+
+            <name>org.jooq.util.mysql.MySQLDatabase</name>
+            <!--<includes>ps_.*|busi_task_face|collision_.*</includes>-->
+            <includes>sys_.*|users</includes>
+
+            <!--修改数据库需要修改此处-->
+            <inputSchema>test</inputSchema>
+            <outputSchema>person_service_schema</outputSchema>
+
+            <includePrimaryKeys>false</includePrimaryKeys>
+            <includeUniqueKeys>false</includeUniqueKeys>
+            <includeForeignKeys>false</includeForeignKeys>
+
+        </database>
+
+        <generate>
+
+            <interfaces>false</interfaces>
+
+            <daos>true</daos>
+
+            <records>false</records>
+
+            <pojos>true</pojos>
+            <pojosToString>true</pojosToString>
+            <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+
+            <fluentSetters>true</fluentSetters>
+
+            <globalCatalogReferences>false</globalCatalogReferences>
+            <globalSequenceReferences>false</globalSequenceReferences>
+            <globalUDTReferences>false</globalUDTReferences>
+
+        </generate>
+
+        <target>
+            <packageName>com.mt.demo.db</packageName>
+            <encoding>UTF-8</encoding>
+            <directory>src/main/jooq</directory>
+        </target>
+
+    </generator>
+</configuration>
